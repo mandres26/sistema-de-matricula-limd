@@ -1,0 +1,27 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/12/2013 01:55:35 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.matricula.model.Turno" table="TURNO" catalog="matriculacetpro">
+        <id name="idTurno" type="int">
+            <column name="idTurno" />
+            <generator class="assigned" />
+        </id>
+        <property name="detalleTurno" type="string">
+            <column name="detalleTurno" length="45" />
+        </property>
+        <property name="horaInicio" type="time">
+            <column name="horaInicio" length="8" />
+        </property>
+        <property name="horaTermino" type="time">
+            <column name="horaTermino" length="8" />
+        </property>
+        <set name="grupos" inverse="true">
+            <key>
+                <column name="TURNO_idTurno" not-null="true" />
+            </key>
+            <one-to-many class="com.matricula.model.Grupo" />
+        </set>
+    </class>
+</hibernate-mapping>

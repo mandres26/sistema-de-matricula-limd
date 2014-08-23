@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/12/2013 01:55:35 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.matricula.model.ProgCurricular" table="PROG_CURRICULAR" catalog="matriculacetpro">
+        <id name="idProgCurricular" type="int">
+            <column name="idProgCurricular" />
+            <generator class="assigned" />
+        </id>
+        <property name="fecRegistro" type="date">
+            <column name="fecRegistro" length="10" />
+        </property>
+        <property name="detalle" type="string">
+            <column name="detalle" length="45" />
+        </property>
+        <set name="curriculaAnuals" inverse="true">
+            <key>
+                <column name="PROG_CURRICULAR_idProgCurricular" not-null="true" />
+            </key>
+            <one-to-many class="com.matricula.model.CurriculaAnual" />
+        </set>
+    </class>
+</hibernate-mapping>

@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">  
+   
+      
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../Resources/CSS/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../Resources/CSS/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Principal</title>
+        <link rel="stylesheet" href="Resources/CSS/estilos.css" />
+    </h:head>
+
+    <h:body>
+        <p:growl id="growl" showDetail="true" life="3000" />         
+                <!--  CONTENIDO -->     
+
+                <h:form id="form">             
+                    <p:dataTable var="alumno" value="#{alumnoBean.alumnos}"
+                                 filteredValue="#{alumnoBean.alumnosFiltrados}" widgetVar="tablaAlumnos"
+                                 selectionMode="single"
+                                 selection="#{alumnoBean.alumnoSeleccionado}" rowKey="#{alumno.dni}" scrollable="true" scrollHeight="150"> 
+                        
+                        <p:ajax event="rowSelect" listener="#{alumnoBean.obtenerSeleccionado()}" />  
+                        
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Buscar Alumno" />
+                            </p:outputPanel>
+
+                        </f:facet>
+
+                        <p:column  filterBy="#{alumno.dni}" headerText="Dni" filterMatchMode="contains">
+                            <h:outputText value="#{alumno.dni}" />
+                        </p:column>    
+                        <p:column filterBy="#{alumno.apePaterno}" headerText="Apellido paterno" filterMatchMode="contains">
+                            <h:outputText value="#{alumno.apePaterno}" />
+                        </p:column>    
+                        <p:column filterBy="#{alumno.apeMaterno}" headerText="Apellido materno" filterMatchMode="contains">
+                            <h:outputText value="#{alumno.apeMaterno}" />
+                        </p:column>                                      
+                        <p:column  filterBy="#{alumno.nombres}" headerText="Nombres" filterMatchMode="contains">
+                            <h:outputText value="#{alumno.nombres}" />
+                        </p:column>
+                                      
+        <f:facet name="footer">  
+        <p:commandButton id="cargarAlumnos" actionListener="#{alumnoBean.cargarAlumnos}" value="Cargar Alumnos" 
+               update=":form" />  
+        <p:commandButton value="Aceptar" onsuccess="parent.selectIframe.hide();" 
+                         ajax="true" process="@none" />
+        </f:facet> 
+
+                    </p:dataTable>  
+
+                    <p:dialog header="Datos del alumno" widgetVar="carDialog" resizable="false"  
+                              width="400" showEffect="explode" hideEffect="explode" >  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="8" >  
+                            <h:outputText value="Id: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.idAlumno}" id="id"/>
+                            
+                            <h:outputText value="Dni: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.dni}" id="dni"/>
+
+                            <h:outputText value="Apellido paterno: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.apePaterno}" id="apePaterno"/> 
+
+                            <h:outputText value="Apallido materno: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.apeMaterno}" id="apeMaterno"/> 
+
+                            <h:outputText value="Nombres: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.nombres}" id="nombres"/> 
+
+                            <h:outputText value="Número fijo: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.numFijo}" id="numFijo"/> 
+
+                            <h:outputText value="Número móvil: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.numMovil}" id="numMovil"/> 
+
+                            <h:outputText value="Domicilio: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.domicilio}" id="domicilio"/> 
+
+                            <h:outputText value="Email: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.email}" id="email"/> 
+
+                            <h:outputText value="Provincia: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.provincia}" id="provincia"/> 
+
+                            <h:outputText value="Región: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.region}" id="region"/>             
+
+                            <h:outputText value="Fecha de nacimiento: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.fecNacimiento}" id="fecNacimiento"/> 
+
+                            <h:outputText value="Edad: " />  
+                            <h:outputText value="#{alumnoBean.alumnoSeleccionado.edad}" id="edad" /> 
+                            
+                            <p:commandButton value="Salir" type="button" onclick="carDialog.hide()" />
+                            
+                        </h:panelGrid> 
+                    </p:dialog>    
+                    
+                </h:form>
+                
+              
+                <script type="text/javascript">  
+                    function cerrar() {  
+                        window.close;
+                    }  
+                </script>
+                
+                                            
+                      
+    </h:body>
+</html>

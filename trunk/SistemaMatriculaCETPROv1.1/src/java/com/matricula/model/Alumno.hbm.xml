@@ -1,0 +1,60 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/12/2013 01:55:35 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.matricula.model.Alumno" table="ALUMNO" catalog="matriculacetpro">
+        <id name="idAlumno" type="string">
+            <column name="idAlumno" length="15" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombres" type="string">
+            <column name="nombres" length="45" />
+        </property>
+        <property name="apePaterno" type="string">
+            <column name="apePaterno" length="45" />
+        </property>
+        <property name="apeMaterno" type="string">
+            <column name="apeMaterno" length="45" />
+        </property>
+        <property name="fecNacimiento" type="date">
+            <column name="fecNacimiento" length="10" />
+        </property>
+        <property name="sexo" type="java.lang.Character">
+            <column name="sexo" length="1" />
+        </property>
+        <property name="dni" type="java.lang.Integer">
+            <column name="dni" precision="8" scale="0" />
+        </property>
+        <property name="email" type="string">
+            <column name="email" length="45" />
+        </property>
+        <property name="edad" type="java.lang.Integer">
+            <column name="edad" />
+        </property>
+        <property name="numFijo" type="java.lang.Integer">
+            <column name="numFijo" precision="7" scale="0" />
+        </property>
+        <property name="numMovil" type="java.lang.Integer">
+            <column name="numMovil" precision="9" scale="0" />
+        </property>
+        <property name="domicilio" type="string">
+            <column name="domicilio" length="45" />
+        </property>
+        <property name="distrito" type="string">
+            <column name="distrito" length="45" not-null="true" />
+        </property>
+        <property name="provincia" type="string">
+            <column name="provincia" length="45" />
+        </property>
+        <property name="region" type="string">
+            <column name="region" length="45" />
+        </property>
+        <set name="matriculas" inverse="true">
+            <key>
+                <column name="ALUMNO_idAlumno" length="15" not-null="true" />
+            </key>
+            <one-to-many class="com.matricula.model.Matricula" />
+        </set>
+    </class>
+</hibernate-mapping>

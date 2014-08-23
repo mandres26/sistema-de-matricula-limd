@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <title>Registrar Matrícula</title>
+    </h:head>
+    <h:body>
+        <h:form id="formRegistrarMatricula" prependId="false" style="font-size:15px;text-align:center" >
+            
+            <p:growl id="messages" showDetail="true"/>  <br/>
+            <center>
+            <h:panelGrid id="panelMatricula" columns="2" cellpadding="5" style="width: 100%">
+                
+                 <p:panel id="panel1" header="Datos Personales" style="width: 90%">  
+                    
+                 <h:panelGrid id="panelDatos" columns="2" cellpadding="5">
+                     <p:lightBox iframe="true" widgetVar="selectIframe" onHide="update:panelMatricula">  
+                        <h:outputLink value="searchAlumnoPrueba.jsf" title="Seleccionar alumno">  
+                            <h:outputText value="Seleccionar alumno"/>
+                        </h:outputLink>  
+                    </p:lightBox>
+                     <p:commandButton value="Update" update="panelMatricula"/>
+                     
+                    <h:outputText value="Nombres:"/>
+                    <h:outputText value="#{registrarMatriculaBean.nombre}"/>
+                    <h:outputText value="Apellido Paterno:"/>
+                    <h:outputText value="#{registrarMatriculaBean.apellidop}"/>
+                    <h:outputText value="Apellido Materno:"/>
+                    <h:outputText value="#{registrarMatriculaBean.apellidom}"/>
+                    <h:outputText value="Apellido Edad:"/>
+                    <h:outputText value="#{registrarMatriculaBean.edad}"/>
+                    <h:outputText value="Apellido DNI:"/>
+                    <h:outputText value="#{registrarMatriculaBean.dni}"/>
+                 </h:panelGrid>
+                 </p:panel>
+                
+                 <p:panel id="panel2" header="Datos del Curso" style="width: 90%">  
+                     <p:commandButton id="basic" value="Elegir Grupos" onclick="dlg1.show()" type="button" />  
+                 </p:panel>                
+                
+	    </h:panelGrid> 
+            
+            <br/><br/>
+            <p:panel id="panel3" header="Grupos a Matricular" style="width: 90%">  
+                <p:dataTable id="gruposMat" var="grupoM" value="#{registrarMatriculaBean.gruposMatricular}" 
+                             rowKey="#{grupoM.idGrupo}" 
+                             emptyMessage="Falta agregar Grupos" >  
+                
+
+                    <p:column headerText="Módulo">  
+                        #{grupoM.modulo.nombreModulo}  
+                    </p:column>  
+
+                    <p:column headerText="Fecha Inicio">  
+                        #{grupoM.fecInicio}  
+                    </p:column>  
+
+                    <p:column headerText="Fecha Termino" >  
+                        #{grupoM.fecTermino}  
+                    </p:column>  
+
+                    <p:column headerText="Matriculados">  
+                        #{grupoM.numMatriculados}  
+                    </p:column>  
+                    <p:column headerText="Máximo Alumnos">  
+                        #{grupoM.cantMaximaAlumno}  
+                    </p:column> 
+                    <p:column headerText="Profesor">  
+                        #{grupoM.profesor.apePaterno} #{grupo.profesor.apeMaterno}
+                    </p:column> 
+                    <p:column headerText="Turno">  
+                        #{grupoM.turno.detalleTurno}   
+                    </p:column>
+
+                </p:dataTable>
+             </p:panel>
+            
+            
+            
+            
+            <p:dialog id="basicDialog" header="Matrícula" widgetVar="dlg1">  
+                <br/> 
+                <p:dataTable id="grupos" var="grupo" value="#{registrarMatriculaBean.grupos}" rowKey="#{grupo.idGrupo}"  
+                 selection="#{registrarMatriculaBean.grupoSeleccionado}" selectionMode="single">  
+                    
+                    <f:facet name="header">  
+                        Grupos
+                    </f:facet>  
+
+                    <p:column headerText="Módulo">  
+                        #{grupo.modulo.nombreModulo}  
+                    </p:column>  
+
+                    <p:column headerText="Fecha Inicio">  
+                        #{grupo.fecInicio}  
+                    </p:column>  
+
+                    <p:column headerText="Fecha Termino" >  
+                        #{grupo.fecTermino}  
+                    </p:column>  
+
+                    <p:column headerText="Matriculados">  
+                        #{grupo.numMatriculados}  
+                    </p:column>  
+                    <p:column headerText="Máximo Alumnos">  
+                        #{grupo.cantMaximaAlumno}  
+                    </p:column> 
+                    <p:column headerText="Profesor">  
+                        #{grupo.profesor.apePaterno} #{grupo.profesor.apeMaterno}
+                    </p:column> 
+                    <p:column headerText="Turno">  
+                        #{grupo.turno.detalleTurno}   
+                    </p:column> 
+                    
+                    <f:facet name="footer">  
+                        <p:commandButton id="Agregar" value="Agregar" icon="ui-icon-search"  
+                                         update=":formRegistrarMatricula:panel3" 
+                                         actionListener="#{registrarMatriculaBean.addGruposMatricular()}"
+                                         oncomplete="dlg1.hide()" />  
+                    </f:facet>  
+
+                </p:dataTable>
+                <br/>
+            </p:dialog>  
+            
+            
+            
+            
+            
+            
+            
+            
+            <br/><br/>
+            <p:commandButton id="botonRegistrar" value="Registrar Matrícula"  icon="ui-icon-disk"
+                             update=":formRegistrarMatricula:messages"
+                             actionListener="#{registrarMatriculaBean.registrarMatricula()}" >  
+                <p:confirm header="Confirmar" message="¿Desea registrar la matrícula?" icon="ui-icon-alert" />  
+            </p:commandButton>  
+            <br/>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+            </p:confirmDialog>  
+            </center>
+        </h:form> 
+    </h:body>
+</html>

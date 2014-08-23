@@ -1,0 +1,149 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+   
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../Resources/CSS/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../Resources/CSS/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Registrar Programacion Curricular</title>
+        <link rel="stylesheet" href="Resources/CSS/estilos.css" />
+    </h:head>
+
+    <h:body>
+        <div id="top" class="top">
+            <p:panel style="alignment-adjust: central">
+            <p:graphicImage value="/Resources/images/titulo.jpg" style="width: 100%"/>
+            </p:panel>
+        </div>
+        
+        <p:growl id="growl" showDetail="true" life="3000" />
+        
+        <h:form id="frm">
+            <div id="content" class="center_content">
+                <h:form>  
+                    <p:growl id="messages"/>   
+                   <p:menubar>                          
+                        <p:menuitem value="Inicio" icon="ui-icon-home" url="/view/index.jsf"/>
+
+                       <p:submenu label="Registros" icon="ui-icon-disk">  
+                           <p:menuitem value="Registrar Alumno" url="/view/registrarAlumno.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarAlumno()}"/>
+                           <p:menuitem value="Registrar Docente" url="/view/registrarDocenteB.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarDocente()}"/>
+                            <p:menuitem value="Registrar Resolucion Directoral" url="/view/registrarRD.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarRd()}"/>
+                            <p:menuitem value="Registrar Programacion Curricular" url="/view/registrarPC.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarPc()}"/>
+                            <p:menuitem value="Registrar Matricula" url="/view/registrarMatricula.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarMatricula()}"/>
+                       </p:submenu>
+ 
+                        <p:submenu label="Mantenimientos" icon="ui-icon-gear">
+                            <p:menuitem value="Modificar Alumno" url="/view/buscarAlumno_1.jsf" rendered="#{LoginBean.comprobarUsuarioModificarAlumno()}"/>
+                            <p:menuitem value="Mantener Docente" url="/view/mantenerProfesor.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerDocente()}"/>
+                            <p:menuitem value="Mantener Especialidades" url="/view/mantenerRD.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerRd()}"/>
+                            <p:menuitem value="Mantener Resolucion Directoral" url="/view/mantenerRD.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerRd()}"/>
+                        </p:submenu>  
+                        
+                        <p:submenu label="Consultas" icon="ui-icon-search">
+                                <p:menuitem value="Consultar Alumno" url="/view/buscarAlumno.jsf" rendered="#{LoginBean.comprobarUsuarioBuscarAlumno()}"/>
+                                <p:menuitem value="Consultar Docente" url="/view/ConsultaDocente.jsf" rendered="#{LoginBean.comprobarUsuarioBuscarAlumno()}"/>
+                                <p:menuitem value="Consultar Modulos" url="/view/consultarM.jsf" rendered="#{LoginBean.comprobarUsuarioConsultarModulos()}"/>                                
+                                <p:menuitem value="Consultar Programacion Curricular" url="/view/consultarProgramacionC.jsf" rendered="#{LoginBean.comprobarUsuarioConsultarPc()}"/>
+                                <p:menuitem value="Consultar Resolución Directoral" url="/view/consultarRD.jsf" rendered="#{LoginBean.comprobarConsultarRd()}"/>
+                            </p:submenu>
+                            
+                        <p:submenu label="Ayuda" icon="ui-icon-help">  
+                            <p:submenu label="Contenidos" icon="ui-icon-search">  
+                                <p:menuitem value="Manual de Usuario" url="#" />  
+                                <p:menuitem value="Manual del Sistema" url="#" /> 
+                            </p:submenu>    
+                        </p:submenu> 
+
+                        <f:facet name="options">  
+                            <p:inputText style="margin-right:10px"/>  
+                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" action="#{LoginBean.logout()}" onclick="gotoLogin()" ajax="false" />  
+                        </f:facet>  
+                    </p:menubar>  
+                </h:form>
+                
+                <br/>     
+                </div>
+                </h:form>
+                <!--  CONTENIDO -->     
+
+          
+                
+      
+    <h:form>
+        <center>
+            <h:panelGrid columns="4" cellpadding="25">
+                <h:outputLabel  value="REGISTRAR PROGRAMACION CURRICULAR" style="font-weight:bold"/>
+            </h:panelGrid>
+          </center>     
+              <center> 
+                  <h:panelGrid columns="4" cellpadding="25">
+             <h:outputLabel for="popupButtonCal3" value="Fecha de Registro" style="font-weight:bold"/>
+                       <p:calendar value="#{registrarPCBean.fecharegistropc}" id="popupButtonCal3" showOn="button" size="9"/>
+                       
+                        <p:dialog header="Selected Dates" widgetVar="dialog" 
+                                  showEffect="fade" hideEffect="fade">
+ 
+                            <h:panelGrid id="display3" columns="2" cellpadding="5">
+                                <h:outputText value="Fecha " />
+                                <h:outputText value="#{registrarPCBean.fecharegistropc}" id="popupButtonDate3">
+                                    <f:convertDateTime pattern="d/M/yyyy"/>
+                                </h:outputText>
+                            </h:panelGrid>
+                        </p:dialog>  
+                         <p:commandButton value="iniciar" update="Table1 msgs @parent" id="submit1"  action="#{registrarPCBean.iniciarProgramacionCurricular}" />  
+                       </h:panelGrid>        
+                 </center> 
+            
+            <h:panelGrid columns="4" cellpadding="25">
+                <h:outputLabel for="n_rd" value="Nro de Resolucion Directoral Vigente:" style="font-weight:bold"/>
+                <p:inputText id="n_rd" value="#{registrarPCBean.startId}" />
+                 <p:commandButton value="Cargar" update="Table1 msgs @parent" id="submit"  action="#{registrarPCBean.buscarResolucion}" />   
+            </h:panelGrid>
+     
+        
+      
+
+        <p:growl id="msgs" />
+        <p:panel header="Especialidades de la Resolucion Directoral">
+
+            <p:dataTable id="Table1" value="#{registrarPCBean.datamodelespecialidad}" var="listac"  >
+
+                <p:column headerText="Nonbre de Especialidad">
+                    #{listac.nombreEspecialidad}
+                </p:column>
+
+                <p:column headerText="Ciclo de Especialidad">
+                    #{listac.cicloEspecialidad}
+                </p:column>
+                <p:column style="width:4%">  
+                    <p:commandButton id="selectButton"  icon="ui-icon-search" title="View" value="Registrar" action="#{registrarPCBean.agarroespecialidad()}" oncomplete="gotoRegistrarPC2()">  
+                        <f:setPropertyActionListener value="#{listac}" target="#{registrarPCBean.selectEspecialidad}" />  
+                    </p:commandButton>  
+                </p:column>  
+
+            </p:dataTable>
+
+        </p:panel>        
+
+
+
+    </h:form>
+                
+    </h:body>
+    
+    
+       <script type="text/javascript">  
+
+            function gotoRegistrarPC2() {  
+                window.location="/SistemaMatriculaCETPROv1.0/view/registrarPC2.jsf";
+            } 
+        </script>
+
+</html>
+

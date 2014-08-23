@@ -1,0 +1,240 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../Resources/CSS/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../Resources/CSS/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="Resources/CSS/estilos.css" />
+        <title>Registrar Resolución Directoral</title>
+    </h:head>
+    <h:body>
+         <div id="top" class="top">
+            <p:panel style="alignment-adjust: central">
+            <p:graphicImage value="/Resources/images/titulo.jpg" style="width: 100%"/>
+            </p:panel>
+        </div>
+        
+        <p:growl id="growl" showDetail="true" life="3000" />
+        
+        <h:form id="frm">
+            <div id="content" class="center_content">
+                <h:form>  
+                    <p:growl id="messages"/>   
+                   <p:menubar>                          
+                        <p:menuitem value="Inicio" icon="ui-icon-home" url="/view/index.jsf"/>
+
+                       <p:submenu label="Registros" icon="ui-icon-disk">  
+                           <p:menuitem value="Registrar Alumno" url="/view/registrarAlumno.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarAlumno()}"/>
+                           <p:menuitem value="Registrar Docente" url="/view/registrarDocenteB.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarDocente()}"/>
+                            <p:menuitem value="Registrar Resolucion Directoral" url="/view/registrarRD.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarRd()}"/>
+                            <p:menuitem value="Registrar Programacion Curricular" url="/view/registrarPC.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarPc()}"/>
+                            <p:menuitem value="Registrar Matricula" url="/view/registrarMatricula.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarMatricula()}"/>
+                       </p:submenu>
+ 
+                        <p:submenu label="Mantenimientos" icon="ui-icon-gear">
+                            <p:menuitem value="Modificar Alumno" url="/view/buscarAlumno_1.jsf" rendered="#{LoginBean.comprobarUsuarioModificarAlumno()}"/>
+                            <p:menuitem value="Mantener Docente" url="/view/mantenerProfesor.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerDocente()}"/>
+                            <p:menuitem value="Mantener Especialidades" url="/view/mantenerRD.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerRd()}"/>
+                            <p:menuitem value="Mantener Resolucion Directoral" url="/view/mantenerRD.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerRd()}"/>
+                        </p:submenu>  
+                        
+                        <p:submenu label="Consultas" icon="ui-icon-search">
+                                <p:menuitem value="Consultar Alumno" url="/view/buscarAlumno.jsf" rendered="#{LoginBean.comprobarUsuarioBuscarAlumno()}"/>
+                                <p:menuitem value="Consultar Docente" url="/view/ConsultaDocente.jsf" rendered="#{LoginBean.comprobarUsuarioBuscarAlumno()}"/>
+                                <p:menuitem value="Consultar Modulos" url="/view/consultarM.jsf" rendered="#{LoginBean.comprobarUsuarioConsultarModulos()}"/>                                
+                                <p:menuitem value="Consultar Programacion Curricular" url="/view/consultarProgramacionC.jsf" rendered="#{LoginBean.comprobarUsuarioConsultarPc()}"/>
+                                <p:menuitem value="Consultar Resolución Directoral" url="/view/consultarRD.jsf" rendered="#{LoginBean.comprobarConsultarRd()}"/>
+                            </p:submenu>
+                            
+                        <p:submenu label="Ayuda" icon="ui-icon-help">  
+                            <p:submenu label="Contenidos" icon="ui-icon-search">  
+                                <p:menuitem value="Manual de Usuario" url="#" />  
+                                <p:menuitem value="Manual del Sistema" url="#" /> 
+                            </p:submenu>    
+                        </p:submenu> 
+
+                        <f:facet name="options">  
+                            <p:inputText style="margin-right:10px"/>  
+                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" action="#{LoginBean.logout()}" onclick="gotoLogin()" ajax="false" />  
+                        </f:facet>  
+                    </p:menubar>  
+                </h:form>
+                
+                <br/>     
+                </div>
+                </h:form>
+        
+        <h:form id="formRegRD" prependId="false" style="font-size:15px;text-align:center" >
+
+            <p:growl id="messages" showDetail="true"/>  
+            <br/>
+            <h:outputText style="font-size:22px;font-weight:bold" value="REGISTRAR RESOLUCIÓN DIRECTORAL"/>
+            <br/><br/>
+            <center>
+            <h:panelGrid id="panelRD" columns="6" cellpadding="5">
+                <h:outputText value="Número de Resolución: "/>
+                <p:inputText required="true" label="Numero Resolucion"  
+                            value="#{registrarRDBean.idResolucion}" /> 
+		<h:outputText value="Fecha de Inicio: "/>
+                <p:selectOneMenu value="#{registrarRDBean.anioInicio}">
+                    <f:selectItems value="#{registrarRDBean.listaAnios}"/>
+                </p:selectOneMenu>
+                <h:outputText value="Fecha de Término: "/>
+                <p:selectOneMenu value="#{registrarRDBean.anioFin}">
+                    <f:selectItems value="#{registrarRDBean.listaAnios}"/>
+                </p:selectOneMenu>
+	    </h:panelGrid> 
+            
+            <br/><br/>
+            
+            <p:panel header="Editor de Especialidades" style="width:80%">
+            
+            <h:panelGrid id="editorEsp" columns="5" cellpadding="5">
+                    <h:outputText value="Nombre de la Especialidad" />
+                    <p:inputText required="true" label="Nombre de Especialidad"  
+                                 value="#{registrarRDBean.txtEspecialidad}" />
+                    <h:outputText value="Ciclo: " />  
+                    <p:selectOneMenu value="#{registrarRDBean.txtCicloEsp}">
+                        <f:selectItem itemLabel="Básico" itemValue="1" /> 
+                    </p:selectOneMenu>  
+                    <p:commandButton value="Add Especialidad" id="ajax"
+                                     update="tablaEspecialidades, :formRegRD:messages, botonRegistrar, editorEsp"  
+                                     icon="ui-icon-plusthick" actionListener="#{registrarRDBean.addEspecialidad()}"/> 
+            </h:panelGrid>
+            
+            <p:contextMenu for="tablaEspecialidades" widgetVar="cMenu">     
+                <p:menuitem value="Editar Especialidad" icon="ui-icon-search" onclick="PF('espTable').showCellEditor();return false;"/>
+                <p:menuitem value="Cerrar Menú" icon="ui-icon-close" onclick="PF('cMenu').hide()"/>    
+            </p:contextMenu> 
+            
+            <p:dataTable id="tablaEspecialidades" value="#{registrarRDBean.especialidades}" var="esp" 
+                     style="width:80%;text-align:center" editable="true" editMode="cell" 
+                     widgetVar="espTable" emptyMessage="Faltan agregar especialidades">  
+                <f:facet name="header">  
+                    Especialidades
+                </f:facet>
+                
+                <p:ajax event="cellEdit" listener="#{registrarRDBean.onCellEdit}" update=":formRegRD:messages" />  
+                 
+                <p:column headerText="Nombre de especialidad" width="50%">  
+                    <p:cellEditor>
+                        <f:facet name="output"><h:outputText value="#{esp.nombreEspecialidad}" /></f:facet>  
+                        <f:facet name="input"><p:inputText id="modelInput" value="#{esp.nombreEspecialidad}" style="width:96%"/></f:facet>
+                    </p:cellEditor>
+                </p:column>  
+
+                <p:column headerText="Ciclo" style="width:30%">  
+                    <h:outputText value="#{esp.cicloEspecialidad}" />  
+                </p:column>  
+                
+                <p:column headerText="Módulos" 
+                          style="width:4%; background-color:#{esp.modulos==null?'#CE5852':''}">  
+                    <p:commandButton id="selectButton" update=":formRegRD:displayModulos, :formRegRD:modulosEsp" 
+                                     oncomplete="dlgModulos.show()" icon="ui-icon-search" title="View">  
+                        <f:setPropertyActionListener value="#{esp}" target="#{registrarRDBean.espSeleccionada}" />                     
+                    </p:commandButton>  
+                </p:column>  
+                
+                <p:column headerText="" style="width:4%">  
+                    <p:commandButton id="deleteButton" update=":formRegRD:modulosEsp, tablaEspecialidades" 
+                                     icon="ui-icon-trash" title="Delete" action="#{registrarRDBean.borrarEspecialidad}">
+                        <f:setPropertyActionListener value="#{esp}" target="#{registrarRDBean.espSeleccionada}" />                     
+                    </p:commandButton>  
+                </p:column> 
+            </p:dataTable>    
+            <br/><br/>
+            </p:panel>
+            
+            <p:dialog id="modalDialog2" header="Editor de Módulos" widgetVar="dlgModulos" 
+                      modal="true" style="width:90%" width="1200"> 
+                                  
+                <h:panelGrid id="editorMod" columns="5" cellpadding="5">
+                    <h:outputText value="Nombre del Módulo" /> 
+                    <p:inputText style="width:400px" label="Nombre de Modulo" value="#{registrarRDBean.txtModulo}" />
+                
+                    <h:outputText value="Horas de Duración" />
+                    <p:inputText  label="Horas de Modulo" value="#{registrarRDBean.txtHorasModulo}" /> 
+                    <p:commandButton value="Agregar" update="modulosEsp, :formRegRD:messages, editorMod"
+                                     icon="ui-icon-plus" actionListener="#{registrarRDBean.addModulos()}"/>
+                </h:panelGrid>    
+                 
+                 <hr/>
+                 <br/> 
+                 <h:panelGrid id="displayModulos" columns="2" cellpadding="5">
+                    <h:outputText value="Especialidad: " />
+                    <h:outputText value="#{registrarRDBean.espSeleccionada.nombreEspecialidad}" style="font-weight:bold"/>
+                </h:panelGrid>   
+                 
+                <p:contextMenu for="modulosEsp" widgetVar="cMenu2">     
+                    <p:menuitem value="Editar Especialidad" icon="ui-icon-search" onclick="PF('espTable').showCellEditor();return false;"/>
+                    <p:menuitem value="Borrar" icon="ui-icon-close" actionListener="#{registrarRDBean.borrarModulo()}"/>    
+                    <p:menuitem value="Cerrar Menú" icon="ui-icon-close" onclick="PF('cMenu2').hide()"/>    
+                </p:contextMenu>   
+                 
+                <p:dataTable id="modulosEsp" value="#{registrarRDBean.espSeleccionada.modulos}" 
+                             var="modulos" editable="true" editMode="cell" widgetVar="espMod"  
+                             emptyMessage="Faltan agregar módulos" style="width:80%"> 
+                    
+                    <f:facet name="header">  
+                        Módulos Ocupacionales
+                    </f:facet>
+                    
+                    <p:ajax event="cellEdit" listener="#{registrarRDBean.onCellEdit}" update=":formRegRD:messages" />  
+                    
+                    <p:column headerText="Nombre de módulo">  
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{modulos.nombreModulo}" /></f:facet>  
+                            <f:facet name="input"><p:inputText id="modelInput"  value="#{modulos.nombreModulo}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>  
+
+                    <p:column headerText="N° de Horas" style="width:30%">  
+                        <p:cellEditor>
+                            <f:facet name="output"><h:outputText value="#{modulos.horasModulo}" /></f:facet>  
+                            <f:facet name="input"><p:inputText value="#{modulos.horasModulo}" style="width:96%"/></f:facet>
+                        </p:cellEditor>
+                    </p:column>
+                    
+                    <p:column headerText="" 
+                          style="width:4%">  
+                        <p:commandButton id="deleteButton2" update=":formRegRD:modulosEsp" 
+                                         icon="ui-icon-trash" title="Delete" action="#{registrarRDBean.borrarModulo}">   
+                            <f:setPropertyActionListener value="#{modulos}" target="#{registrarRDBean.modSeleccionado}" />  
+                        </p:commandButton>  
+                    </p:column> 
+                </p:dataTable>
+                <br/>
+                <p:commandButton value="Listo" onclick="dlgModulos.hide();" update="tablaEspecialidades"/> 
+                <br/>
+            </p:dialog>
+            <br/>         
+            
+            <p:dialog id="dialogP" header="Car Detail" widgetVar="dlgPruebas" 
+              width="200" showEffect="clip" hideEffect="fold">  
+  
+                <h:panelGrid id="display111" columns="2" cellpadding="4">  
+                   
+                    <h:outputText value="prueba:" />  
+                    <h:outputText value="#{registrarRDBean.modSeleccionado.nombreModulo}" />  
+
+                </h:panelGrid>  
+            </p:dialog>  
+            
+            
+            <p:commandButton id="botonRegistrar" value="Registrar Resolución Directoral"  icon="ui-icon-disk"
+                             disabled="#{registrarRDBean.registro}" update=":formRegRD:messages, panelRD"
+                             actionListener="#{registrarRDBean.registrarRD()}" >  
+                <p:confirm header="Confirmar" message="¿Desea guardar los cambios?" icon="ui-icon-alert" />  
+            </p:commandButton>  
+            <br/>
+            <p:confirmDialog global="true" showEffect="fade" hideEffect="explode">  
+                <p:commandButton value="Yes" type="button" styleClass="ui-confirmdialog-yes" icon="ui-icon-check"/>  
+                <p:commandButton value="No" type="button" styleClass="ui-confirmdialog-no" icon="ui-icon-close"/>       
+            </p:confirmDialog>  
+            </center>
+        </h:form> 
+    </h:body>
+</html>

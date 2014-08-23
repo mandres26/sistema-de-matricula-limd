@@ -1,0 +1,24 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/12/2013 01:55:35 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.matricula.model.Dia" table="DIA" catalog="matriculacetpro">
+        <id name="idDia" type="int">
+            <column name="idDia" />
+            <generator class="assigned" />
+        </id>
+        <property name="nombreDia" type="string">
+            <column name="nombreDia" length="45" />
+        </property>
+        <property name="nomDia" type="string">
+            <column name="nomDia" length="45" />
+        </property>
+        <set name="grupoDias" inverse="true">
+            <key>
+                <column name="DIA_idDia" not-null="true" />
+            </key>
+            <one-to-many class="com.matricula.model.GrupoDia" />
+        </set>
+    </class>
+</hibernate-mapping>

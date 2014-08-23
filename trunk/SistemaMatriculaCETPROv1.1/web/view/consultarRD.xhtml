@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:f="http://java.sun.com/jsf/core">
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../Resources/CSS/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../Resources/CSS/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="Resources/CSS/estilos.css" />
+        <title>Registrar Resolución Directoral</title>
+    </h:head>
+    <h:body>
+        <div id="top" class="top">
+            <p:panel style="alignment-adjust: central">
+            <p:graphicImage value="/Resources/images/titulo.jpg" style="width: 100%"/>
+            </p:panel>
+        </div>
+        
+        <p:growl id="growl" showDetail="true" life="3000" />
+        
+        <h:form id="frm">
+            <div id="content" class="center_content">
+                <h:form>  
+                    <p:growl id="messages"/>   
+                   <p:menubar>                          
+                        <p:menuitem value="Inicio" icon="ui-icon-home" url="/view/index.jsf"/>
+
+                       <p:submenu label="Registros" icon="ui-icon-disk">  
+                           <p:menuitem value="Registrar Alumno" url="/view/registrarAlumno.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarAlumno()}"/>
+                           <p:menuitem value="Registrar Docente" url="/view/registrarDocenteB.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarDocente()}"/>
+                            <p:menuitem value="Registrar Resolucion Directoral" url="/view/registrarRD.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarRd()}"/>
+                            <p:menuitem value="Registrar Programacion Curricular" url="/view/registrarPC.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarPc()}"/>
+                            <p:menuitem value="Registrar Matricula" url="/view/registrarMatricula.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarMatricula()}"/>
+                       </p:submenu>
+ 
+                        <p:submenu label="Mantenimientos" icon="ui-icon-gear">
+                            <p:menuitem value="Modificar Alumno" url="/view/buscarAlumno_1.jsf" rendered="#{LoginBean.comprobarUsuarioModificarAlumno()}"/>
+                            <p:menuitem value="Mantener Docente" url="/view/mantenerProfesor.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerDocente()}"/>
+                            <p:menuitem value="Mantener Especialidades" url="/view/mantenerRD.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerRd()}"/>
+                            <p:menuitem value="Mantener Resolucion Directoral" url="/view/mantenerRD.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerRd()}"/>
+                        </p:submenu>  
+                        
+                        <p:submenu label="Consultas" icon="ui-icon-search">
+                                <p:menuitem value="Consultar Alumno" url="/view/buscarAlumno.jsf" rendered="#{LoginBean.comprobarUsuarioBuscarAlumno()}"/>
+                                <p:menuitem value="Consultar Docente" url="/view/ConsultaDocente.jsf" rendered="#{LoginBean.comprobarUsuarioBuscarAlumno()}"/>
+                                <p:menuitem value="Consultar Modulos" url="/view/consultarM.jsf" rendered="#{LoginBean.comprobarUsuarioConsultarModulos()}"/>                                
+                                <p:menuitem value="Consultar Programacion Curricular" url="/view/consultarProgramacionC.jsf" rendered="#{LoginBean.comprobarUsuarioConsultarPc()}"/>
+                                <p:menuitem value="Consultar Resolución Directoral" url="/view/consultarRD.jsf" rendered="#{LoginBean.comprobarConsultarRd()}"/>
+                            </p:submenu>
+                            
+                        <p:submenu label="Ayuda" icon="ui-icon-help">  
+                            <p:submenu label="Contenidos" icon="ui-icon-search">  
+                                <p:menuitem value="Manual de Usuario" onclick="gotoManualUsuario()" />  
+                                <p:menuitem value="Manual del Sistema" onclick="gotoManualSistema()" /> 
+                            </p:submenu>    
+                        </p:submenu> 
+
+                        <f:facet name="options">  
+                            <p:inputText style="margin-right:10px"/>  
+                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" action="#{LoginBean.logout()}" onclick="gotoLogin()" ajax="false" />  
+                        </f:facet>  
+                    </p:menubar>  
+                </h:form>
+                
+                <br/>     
+                </div>
+                </h:form>
+        
+        <h:form id="formConsultarRD" prependId="false" style="font-size:15px;text-align:center" >
+            <center>
+            <br/>
+                <h:outputText value="Resoluciones Directorales"/>            
+            <br/>
+            
+            <p:contextMenu for="resoluciones">  
+                <p:menuitem value="View" icon="ui-icon-search" oncomplete="PF('rdDialog').show()"/>   
+            </p:contextMenu>  
+           
+            <p:dataTable id="resoluciones" var="rd" value="#{consultarRDBean.resoluciones}" rowKey="#{rd.idRd}"  
+                         selection="#{consultarRDBean.selectedRD}" selectionMode="single"
+                         style="width:80%">  
+                
+                <p:column headerText="ID">  
+                    #{rd.idRd}  
+                </p:column>  
+
+                <p:column headerText="Año de Inicio">  
+                    #{rd.anioInicio}  
+                </p:column>  
+
+                <p:column headerText="Año de Término" >  
+                    #{rd.anioTermino}  
+                </p:column>  
+
+                <p:column headerText="Fecha de Registro">  
+                    #{rd.fecRegistro}  
+                </p:column>  
+                
+                <f:facet name="footer">  
+                    <p:commandButton id="viewButton" value="Contenido de la Resolución" icon="ui-icon-search"  
+                                     oncomplete="PF('rdDialog').show()" update=":formConsultarRD:dis"
+                                     actionListener="#{consultarRDBean.listarEspecialidades()}"/>  
+                </f:facet> 
+
+            </p:dataTable>   
+
+            <p:dialog header="Detalle de Resolución Directoral" widgetVar="rdDialog" width="1000"
+                      showEffect="clip" hideEffect="fold" id="dialog">  
+                 <h:panelGrid id="dis" columns="3" cellpadding="4">
+                     <h:outputText value="ID: #{consultarRDBean.selectedRD.idRd}" />  
+                     <h:outputText value="Año Inicio: #{consultarRDBean.selectedRD.anioInicio}" />  
+                     <h:outputText value="Año Fin: #{consultarRDBean.selectedRD.anioTermino}" />  
+                 </h:panelGrid>    
+                <hr/>
+                
+                
+                     
+            </p:dialog>   
+            
+            </center>
+        </h:form>
+    </h:body>
+</html>
