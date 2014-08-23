@@ -1,0 +1,45 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/12/2013 01:55:35 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.matricula.model.Grupo" table="GRUPO" catalog="matriculacetpro">
+        <id name="idGrupo" type="int">
+            <column name="idGrupo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="modulo" class="com.matricula.model.Modulo" fetch="select">
+            <column name="MODULO_idModulo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="profesor" class="com.matricula.model.Profesor" fetch="select">
+            <column name="PROFESOR_codProfesor" not-null="true" />
+        </many-to-one>
+        <many-to-one name="turno" class="com.matricula.model.Turno" fetch="select">
+            <column name="TURNO_idTurno" not-null="true" />
+        </many-to-one>
+        <property name="fecInicio" type="date">
+            <column name="fecInicio" length="10" />
+        </property>
+        <property name="fecTermino" type="date">
+            <column name="fecTermino" length="10" />
+        </property>
+        <property name="numMatriculados" type="java.lang.Integer">
+            <column name="numMatriculados" />
+        </property>
+        <property name="cantMaximaAlumno" type="java.lang.Integer">
+            <column name="cantMaximaAlumno" />
+        </property>
+        <set name="grupoDias" inverse="true">
+            <key>
+                <column name="GRUPO_idGrupo" not-null="true" />
+            </key>
+            <one-to-many class="com.matricula.model.GrupoDia" />
+        </set>
+        <set name="matriculas" inverse="true">
+            <key>
+                <column name="GRUPO_idGrupo" not-null="true" />
+            </key>
+            <one-to-many class="com.matricula.model.Matricula" />
+        </set>
+    </class>
+</hibernate-mapping>

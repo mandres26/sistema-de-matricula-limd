@@ -1,0 +1,28 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/12/2013 01:55:35 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.matricula.model.Matricula" table="MATRICULA" catalog="matriculacetpro">
+        <composite-id name="id" class="com.matricula.model.MatriculaId">
+            <key-property name="alumnoIdAlumno" type="string">
+                <column name="ALUMNO_idAlumno" length="15" />
+            </key-property>
+            <key-property name="grupoIdGrupo" type="int">
+                <column name="GRUPO_idGrupo" />
+            </key-property>
+        </composite-id>
+        <many-to-one name="grupo" class="com.matricula.model.Grupo" update="false" insert="false" fetch="select">
+            <column name="GRUPO_idGrupo" not-null="true" />
+        </many-to-one>
+        <many-to-one name="alumno" class="com.matricula.model.Alumno" update="false" insert="false" fetch="select">
+            <column name="ALUMNO_idAlumno" length="15" not-null="true" />
+        </many-to-one>
+        <property name="fecMatricula" type="date">
+            <column name="fecMatricula" length="10" />
+        </property>
+        <property name="observacion" type="string">
+            <column name="observacion" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

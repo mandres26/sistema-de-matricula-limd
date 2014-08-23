@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this template, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+    
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+     
+    
+    
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../Resources/CSS/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../Resources/CSS/cssLayout.css" rel="stylesheet" type="text/css" />
+        <link rel="stylesheet" href="Resources/CSS/estilos.css" />
+        <title>CONSULTAR PROGRAMACION CURRICULAR</title>
+    </h:head>
+    
+    
+    <body>
+        <h:form id="formConsultarProg" prependId="false" style="font-size:15px;text-align:center" >  
+            <p:growl id="messages" showDetail="true"/>  
+            <br/>
+            <h:outputText style="font-size:22px;font-weight:bold" value="REGISTRAR RESOLUCIÓN DIRECTORAL"/>
+            <br/><br/>
+            <center></center>
+            
+            
+            <h:panelGrid id="panelCPC" columns="6" cellpadding="5">
+                
+		<h:outputText value="Seleccione un Año: "/>
+                <p:selectOneMenu value="#">
+                    <f:selectItems value="#"/>
+                </p:selectOneMenu>
+               
+	    </h:panelGrid> 
+                <br/><br/>
+                    <p:dataTable var="ProgramacionC" value="#"
+                                 filteredValue="#" widgetVar="tablaProgramacionC"
+                                 selectionMode="single"
+                                 selection="#" rowKey="#" scrollable="true" scrollHeight="150"> 
+
+                        <f:facet name="header">
+                            <p:outputPanel>
+                                <h:outputText value="Buscar Programacion Curricular" />
+                            </p:outputPanel>
+
+                        </f:facet>
+
+                        <p:column  filterBy="#" headerText="Fecha" filterMatchMode="contains">
+                            <h:outputText value="#" />
+                        </p:column>    
+                                                           
+                        
+                                      
+        <f:facet name="footer">  
+        <p:commandButton id="cargarProgramacion"  actionListener="#" value="Cargar Programacion curricular" 
+               update=":form" /> 
+        <p:commandButton id="botonConsultaP" value="Consultar Programacion Curricular" icon="ui-icon-search"  
+        update=":form:display"  oncomplete="carDialog.show()"/>     
+        <p:commandButton id="botonAceptar" value="Aceptar"/> 
+          
+        </f:facet> 
+
+                    </p:dataTable>  
+
+                    <p:dialog header="PROGRAMACION CURRICULAR" widgetVar="carDialog" resizable="false"  
+                              width="400" showEffect="explode" hideEffect="explode" >  
+
+                        <h:panelGrid id="display" columns="2" cellpadding="8" >  
+                            <h:outputText value="Id: " />  
+                            <h:outputText value="#" id="id"/>
+                            
+                            <h:outputText value="Fecha de Reg: " />  
+                            <h:outputText value="#" id="dni"/>
+
+                            <h:outputText value="Detalles: " />  
+                            <h:outputText value="#" id="apePaterno"/> 
+
+                            
+                            <p:commandButton value="Salir" type="button" onclick="carDialog.hide()" />
+                            <p:commandButton id="botonAceptarP" value="Aceptar" onclick="carDialog.hide()"/>    
+                            
+                        </h:panelGrid> 
+                    </p:dialog>    
+                    
+                </h:form>
+    </body>
+</html>

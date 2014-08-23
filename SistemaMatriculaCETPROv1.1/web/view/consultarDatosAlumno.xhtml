@@ -1,0 +1,222 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:h="http://java.sun.com/jsf/html"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:f="http://java.sun.com/jsf/core">
+
+    <h:head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link href="./../Resources/CSS/default.css" rel="stylesheet" type="text/css" />
+        <link href="./../Resources/CSS/cssLayout.css" rel="stylesheet" type="text/css" />
+        <title>Principal</title>
+        <link rel="stylesheet" href="Resources/CSS/estilos.css" />
+    </h:head>
+
+    <h:body>
+        <div id="top" class="top">
+            <p:panel style="alignment-adjust: central">
+            <p:graphicImage value="/Resources/images/titulo.jpg" style="width: 100%"/>
+            </p:panel>
+        </div>
+        
+        <p:growl id="growl" showDetail="true" life="3000" />         
+        
+     
+            <div id="content" class="center_content">
+                <h:form>  
+                    <p:growl id="messages"/>   
+                   <p:menubar>                          
+                        <p:menuitem value="Inicio" icon="ui-icon-home" url="/view/index.jsf"/>
+
+                       <p:submenu label="Registros" icon="ui-icon-disk">  
+                           <p:menuitem value="Registrar Alumno" url="/view/registrarAlumno.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarAlumno()}"/>
+                           <p:menuitem value="Registrar Docente" url="/view/registrarDocenteB.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarDocente()}"/>
+                            <p:menuitem value="Registrar Resolucion Directoral" url="/view/registrarRD.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarRd()}"/>
+                            <p:menuitem value="Registrar Programacion Curricular" url="/view/registrarPC.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarPc()}"/>
+                            <p:menuitem value="Registrar Matricula" url="/view/registrarMatricula.jsf" rendered="#{LoginBean.comprobarUsuarioRegistrarMatricula()}"/>
+                       </p:submenu>
+ 
+                        <p:submenu label="Mantenimientos" icon="ui-icon-gear">
+                            <p:menuitem value="Modificar Alumno" url="/view/buscarAlumno_1.jsf" rendered="#{LoginBean.comprobarUsuarioModificarAlumno()}"/>
+                            <p:menuitem value="Mantener Docente" url="/view/mantenerProfesor.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerDocente()}"/>
+                            <p:menuitem value="Mantener Especialidades" url="/view/mantenerRD.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerRd()}"/>
+                            <p:menuitem value="Mantener Resolucion Directoral" url="/view/mantenerRD.jsf" rendered="#{LoginBean.comprobarUsuarioMantenerRd()}"/>
+                        </p:submenu>  
+                        
+                        <p:submenu label="Consultas" icon="ui-icon-search">
+                                <p:menuitem value="Consultar Alumno" url="/view/buscarAlumno.jsf" rendered="#{LoginBean.comprobarUsuarioBuscarAlumno()}"/>
+                                <p:menuitem value="Consultar Docente" url="/view/ConsultaDocente.jsf" rendered="#{LoginBean.comprobarUsuarioBuscarAlumno()}"/>
+                                <p:menuitem value="Consultar Modulos" url="/view/consultarM.jsf" rendered="#{LoginBean.comprobarUsuarioConsultarModulos()}"/>                                
+                                <p:menuitem value="Consultar Programacion Curricular" url="/view/consultarProgramacionC.jsf" rendered="#{LoginBean.comprobarUsuarioConsultarPc()}"/>
+                                <p:menuitem value="Consultar Resolución Directoral" url="/view/consultarRD.jsf" rendered="#{LoginBean.comprobarConsultarRd()}"/>
+                            </p:submenu>
+                            
+                        <p:submenu label="Ayuda" icon="ui-icon-help">  
+                            <p:submenu label="Contenidos" icon="ui-icon-search">  
+                                <p:menuitem value="Manual de Usuario" onclick="gotoManualUsuario()" />  
+                                <p:menuitem value="Manual del Sistema" onclick="gotoManualSistema()" /> 
+                            </p:submenu>    
+                        </p:submenu> 
+
+                        <f:facet name="options">  
+                            <p:inputText style="margin-right:10px"/>  
+                            <p:commandButton type="button" value="Logout" icon="ui-icon-extlink" action="#{LoginBean.logout()}" onclick="gotoLogin()" ajax="false" />  
+                        </f:facet>  
+                    </p:menubar>  
+                </h:form>
+                <br/>
+                
+          <!-->  CONTENIDO </!-->      
+                
+          <h:panelGrid columns="4">  
+              
+          <p:panel id="panel1" header="Datos Personales" style="margin-bottom:10px; height: 350px">  
+              <h:panelGrid columns="2">  
+                  <h:outputLabel for="codigo" value="Codigo: "  style="width: 1800px"/>  
+                  <p:inputText id="codigo" value="#{alumnoBean.alumnoSeleccionado.idAlumno}" required="true" label="codigo" readonly="true" style="width: 250px"/>
+                <h:outputText/>
+                <br/>
+                
+                <h:outputLabel for="nombres" value="Nombres: " />  
+                <p:inputText id="nombres" value="#{alumnoBean.alumnoSeleccionado.nombres}" required="true" label="nombres" readonly="true" style="width: 250px">  
+                    <f:validateLength minimum="2" />  
+                </p:inputText> 
+
+                <h:outputLabel for="apPaterno" value="Ap. Paterno: " />  
+                <p:inputText id="apPaterno" value="#{alumnoBean.alumnoSeleccionado.apePaterno}" required="true" label="apPaterno" readonly="true" style="width: 250px"/>   
+
+                
+                <h:outputLabel for="apMaterno" value="Ap. Materno: " />  
+                <p:inputText id="apMaterno" value="#{alumnoBean.alumnoSeleccionado.apeMaterno}" required="true" label="apMaterno" readonly="true" style="width: 250px"/>  
+                <h:outputText/>
+                <br/>
+                
+                <h:outputLabel for="dni" value="DNI: " />  
+                <p:inputText id="dni" value="#{alumnoBean.alumnoSeleccionado.dni}" required="true" label="dni" readonly="true" style="width: 250px"> 
+                    <f:validateLength minimum="8" maximum="8"/>
+                </p:inputText>
+                <h:outputText/>
+                <br/>
+                
+                <h:outputLabel for="sexo" value="Sexo: " />  
+                <p:selectOneRadio id="sexo" value="#{alumnoBean.alumnoSeleccionado.sexo}" style="width: 250px" disabled="true">  
+                <f:selectItem itemLabel="Masculino" itemValue="M" />  
+                <f:selectItem itemLabel="Femenino" itemValue="F" />   
+                </p:selectOneRadio>  
+                <h:outputText/>
+                <br/>
+
+                <h:outputLabel for="fecNacimiento" value="Fecha Nacimiento: " />             
+                <p:calendar id="fecNacimiento" value="#{alumnoBean.alumnoSeleccionado.fecNacimiento}" pattern="dd/MM/yyyy" showOn="false" readonly="true"/>
+                <h:outputText/>
+                <br/>
+
+            </h:panelGrid>  
+        </p:panel>  
+        
+            <p:panel id="panel2" header="Otros Datos" style="margin-bottom:10px; height: 350px">  
+                <h:panelGrid columns="1">  
+                    <h:outputLabel for="region" value="Region: " />  
+                    <p:inputText id="region" value="#{alumnoBean.alumnoSeleccionado.region}" required="true" label="dni" readonly="true" style="width: 250px"/> 
+                    <br/>
+                    <h:outputLabel for="provincia" value="Provincia: " />  
+                     <p:inputText id="provincia" value="#{alumnoBean.alumnoSeleccionado.provincia}" required="true" label="dni" readonly="true" style="width: 250px"/> 
+                    <h:outputText />
+                    <br/>
+                    <h:outputLabel for="distrito" value="Distrito: " />  
+                    <p:inputText id="distrito" value="#{alumnoBean.alumnoSeleccionado.distrito}" required="true" label="dni" readonly="true" style="width: 250px"/> 
+                    <h:outputText />
+                    <br/>
+                    <h:outputLabel for="direccion" value="Direccion: " />  
+                    <p:inputText id="direccion" value="#{alumnoBean.alumnoSeleccionado.domicilio}" required="true" label="direccion" readonly="true" style="width: 280px"/>
+                    <h:outputText />
+                </h:panelGrid>  
+            </p:panel>
+                                    
+            <p:panel id="panel3" header="Contacto" style="margin-bottom:10px; height: 350px">  
+                <h:panelGrid columns="2">  
+                    <h:outputLabel for="correo" value="Correo: "/>  
+                    <p:inputText id="correo" value="#{alumnoBean.alumnoSeleccionado.email}" required="true" label="correo" readonly="true" style="width: 200px"/>
+                    <h:outputText/>
+                    <br/><br/>
+
+                    <h:outputLabel for="telefono" value="Telefono: " />  
+                    <p:inputText id="telefono" value="#{alumnoBean.alumnoSeleccionado.numFijo}" required="true" label="telefono" readonly="true" style="width: 150px">
+                        <f:validateLength minimum="7" maximum="7"/>
+                    </p:inputText>
+                    <h:outputText />
+                    <br/><br/>
+
+                    <h:outputLabel for="celular" value="Celular: " />  
+                    <p:inputText id="celular" value="#{alumnoBean.alumnoSeleccionado.numMovil}" required="true" label="celular" readonly="true" style="width: 150px">
+                        <f:validateLength minimum="9" maximum="9"/>
+                    </p:inputText>
+                    <h:outputText />
+                </h:panelGrid>  
+            </p:panel>  
+            
+            <p:panel id="panel4" header="Foto" style="margin-bottom:10px;">          
+                <p:graphicImage id="fotoimg" value="/Resources/images/user.png" style="width: 280px"/>
+                <br/>
+
+                <h:form enctype="multipart/form-data">    
+                    <p:messages showDetail="true"/>  
+                    <p:fileUpload value="#{fileUploadController.file}" mode="simple" style="font-size: 10px"/>  
+                    <!-->
+                    <p:commandButton value="Submit" ajax="false" actionListener="#{fileUploadController.upload}"/>  </!-->
+                </h:form>  
+            </p:panel>         
+        </h:panelGrid>                
+            <br/>
+
+            <p:panel id="panelModulos"  style="margin-bottom:10px;">      
+                 <p:dataTable id="tablaModulos" value="#{alumnoBean.alumnoSeleccionado.listaMatriculas()}" var="mat" 
+                     style="width:100%;text-align:center" emptyMessage="El alumno no ha llevado ningún módulo">  
+                <f:facet name="header">  
+                    Módulos llevados por el alumno
+                </f:facet>                 
+                <p:column headerText="Nombre del módulo" width="50%">  
+                      <h:outputText value="#{mat.grupo.modulo.nombreModulo}" /> 
+                </p:column>  
+                   
+                <p:column headerText="Cantidad de horas" style="width:16%">  
+                    <h:outputText value="#{mat.grupo.modulo.horasModulo}" />  
+                </p:column>  
+                
+                <p:column headerText="Fecha de inicio" style="width:16%">  
+                    <p:calendar id="fecInicio" value="#{mat.grupo.fecInicio}" pattern="dd/MM/yyyy" showOn="false" readonly="true"/>
+                </p:column>  
+                     
+                <p:column headerText="Fecha de termino" style="width:18%">  
+                <p:calendar id="fecTermino" value="#{mat.grupo.fecTermino}" pattern="dd/MM/yyyy" showOn="false" readonly="true"/>
+                </p:column>       
+              
+            </p:dataTable>                         
+        </p:panel>      
+             <br/>
+             
+             <p:commandButton value="ACEPTAR" oncomplete="abrir()" style="width: 200px; font-size: 25px;"/>  
+                                                                         
+            
+       
+        
+       
+        <script type="text/javascript">  
+            function abrir() {  
+                window.location="/SistemaMatriculaCETPROv1.0/view/index.jsf";
+            }  
+        </script>
+        
+    </div>
+    
+        
+        
+    </h:body>
+</html>

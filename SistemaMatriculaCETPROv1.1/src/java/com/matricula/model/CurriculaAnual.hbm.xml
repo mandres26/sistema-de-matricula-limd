@@ -1,0 +1,18 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/12/2013 01:55:35 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.matricula.model.CurriculaAnual" table="CURRICULA_ANUAL" catalog="matriculacetpro">
+        <id name="idCurriculaAnual" type="string">
+            <column name="idCurriculaAnual" length="45" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="especialidad" class="com.matricula.model.Especialidad" fetch="select">
+            <column name="ESPECIALIDAD_idEspecialidad" not-null="true" />
+        </many-to-one>
+        <many-to-one name="progCurricular" class="com.matricula.model.ProgCurricular" fetch="select">
+            <column name="PROG_CURRICULAR_idProgCurricular" not-null="true" />
+        </many-to-one>
+    </class>
+</hibernate-mapping>

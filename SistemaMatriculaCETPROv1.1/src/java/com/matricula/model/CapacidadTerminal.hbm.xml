@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 9/12/2013 01:55:35 AM by Hibernate Tools 3.2.1.GA -->
+<hibernate-mapping>
+    <class name="com.matricula.model.CapacidadTerminal" table="CAPACIDAD_TERMINAL" catalog="matriculacetpro">
+        <id name="idCodigo" type="int">
+            <column name="idCodigo" />
+            <generator class="assigned" />
+        </id>
+        <many-to-one name="modulo" class="com.matricula.model.Modulo" fetch="select">
+            <column name="MODULO_codModulo" not-null="true" />
+        </many-to-one>
+        <property name="nombreCt" type="string">
+            <column name="nombreCT" length="45" />
+        </property>
+        <property name="notaCt" type="string">
+            <column name="notaCT" length="45" />
+        </property>
+    </class>
+</hibernate-mapping>

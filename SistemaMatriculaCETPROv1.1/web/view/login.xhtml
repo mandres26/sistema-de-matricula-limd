@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"  
+    xmlns:h="http://java.sun.com/jsf/html"  
+    xmlns:f="http://java.sun.com/jsf/core"  
+    xmlns:p="http://primefaces.org/ui">  
+    <h:head>
+        <title>Bienvenidos</title>
+        <link rel="stylesheet" href="Resources/CSS/estilos.css" />
+    </h:head>
+    <h:body>      
+        <p:notificationBar position="top" effect="slide" widgetVar="bar" styleClass="top">  
+            <h:outputText value="Sistema Matricula CETPRO Carabayllo!" style="color:#FFCC00;font-size:36px;" />  
+        </p:notificationBar>
+        
+        <h:outputLink id="loginLink" value="javascript:void(0)" onclick="dlg.show(); bar.show()">     
+            <p:graphicImage id="centrar" value="/Resources/images/boton_login.png" />  
+        </h:outputLink>  
+
+        <p:growl id="growl" showDetail="true" life="3000" />  
+
+        <p:dialog id="dialog" header="Acceso Restringido" widgetVar="dlg" modal="true" resizable="false">  
+            <h:form>  
+
+                <h:panelGrid columns="2" cellpadding="5">  
+                    <h:outputLabel for="username" value="Usuario:" />  
+                    
+                    <p:inputText value="#{LoginBean.usuario.nombreUsuario}"   
+                            id="username" required="true" label="username" />  
+
+                    <h:outputLabel for="password" value="Contrasena:" />  
+                    <h:inputSecret value="#{LoginBean.usuario.contraseniaUsuario}"   
+                            id="password" required="true" label="password" />  
+                    
+                    <f:facet name="footer">  
+                        <p:commandButton id="loginButton" value="Ingresar" update=":growl"    
+                                         actionListener="#{LoginBean.login}" oncomplete="handleLoginRequest(xhr, status, args)"> 
+                        </p:commandButton>
+                        
+                    </f:facet>  
+                </h:panelGrid>  
+                
+
+            </h:form>  
+        </p:dialog>  
+        <p:ajaxStatus style="position:fixed;right:20px;bottom:20px">  
+            <f:facet name="start">  
+                <p:graphicImage value="/Resources/images/loading.gif" />  
+            </f:facet>  
+
+            <f:facet name="complete">  
+                <h:outputText value="" />  
+            </f:facet>  
+        </p:ajaxStatus>  
+
+        <script type="text/javascript">  
+            function handleLoginRequest(xhr, status, args) {  
+                if(args.validationFailed || !args.loggedIn) {  
+                    jQuery('#dialog').effect("shake", { times:2 }, 100);  
+                } else {  
+                    dlg.hide();  
+                    jQuery('#loginLink').fadeOut();  
+                    window.location="/SistemaMatriculaCETPROv1.0/view/index.jsf";
+                }  
+            } 
+        </script>  
+    </h:body>
+</html>

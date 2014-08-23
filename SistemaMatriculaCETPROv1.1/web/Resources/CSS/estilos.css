@@ -1,0 +1,30 @@
+/* 
+    Document   : estilos
+    Created on : 20/03/2013, 10:13:04 PM
+    Author     : FELIPE
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+
+#centrar{
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    margin-top: -100px;
+    margin-left: -100px;
+}
+
+#centrarCamp1{
+    position: absolute;
+    margin-right: -200px;
+    margin-left: -200px;
+}
+
+#centrarCamp2{
+    position: absolute;
+    right: 50%;
+    left: 50%;
+    margin-right: -100px;
+    margin-left: -100px;
+}
